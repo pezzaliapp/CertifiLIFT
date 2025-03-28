@@ -42,73 +42,28 @@
         <!-- Checklist verifica periodica -->
         <section id="checklist">
             <h3>1. VERIFICA NORMATIVA</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Dichiarazione di Conformità CE: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Marchio CE: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Manuale d'Uso e Manutenzione: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Progettazione Strutturale: ☐ Verificato</label></li>
-            </ul>
+            <ul id="verification-items"></ul>
 
             <h3>2. INSTALLAZIONE E FISSAGGIO</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Livellamento e Fissaggio al Suolo: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Serraggio Tasselli Fissaggio Basamenti al Pavimento: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Resistenza del Pavimento: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Spazio Operativo e Accessibilità: ☐ Verificato</label></li>
-            </ul>
+            <ul id="installation-items"></ul>
 
             <h3>3. TEST FUNZIONALI E CONTROLLI MECCANICI</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Altezza di Sollevamento (Pavimento-Pedane): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Allineamento Pedane: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Controllo Olio Centralina Idraulica: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Funzionamento Valvola di Riallineamento Pedane: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Inserimento Arpioni (se con sicure meccaniche): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Verifica Valvola a Paracadute (se presente): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Verifica Pressostato (se presente): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Verifica Cicalino di Segnalazione Sonora: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Tempi di Salita/Discesa a Pieno Carico: ☐ Verificato</label></li>
-            </ul>
+            <ul id="functional-tests-items"></ul>
 
-            <h3>4. SICUREZZE E DISPOSITIVI DI PROTEZIONE</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Attivazione Fotocellule (se presenti): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Dispositivi di Blocco Meccanico/Idraulico: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Sensori di Sovraccarico o Allarme: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Arresto di Emergenza: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Protezioni Antinfortunistiche (Paratie, Coperture, ecc.): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Presenza Adesivi di Sicurezza: ☐ Verificato</label></li>
-            </ul>
+            <h3>4. SICUREZZA E DISPOSITIVI DI PROTEZIONE</h3>
+            <ul id="safety-items"></ul>
 
             <h3>5. VERIFICA COMANDI ELETTRICI</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Interruttore Generale: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Pulsanti Salita/Discesa: ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Indicatori Luminosi (LED): ☐ Verificato</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Sistema di Alimentazione Elettrica (Differenziali/Magnetotermici): ☐ Verificato</label></li>
-            </ul>
+            <ul id="electrical-controls-items"></ul>
 
             <h3>6. SICUREZZA E RISCHI</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Segnaletica di Sicurezza: ☐ Installata</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Valutazione dei Rischi (DVR): ☐ Integrata</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Controllo delle Vibrazioni: ☐ Verificato</label></li>
-            </ul>
+            <ul id="safety-risks-items"></ul>
 
             <h3>7. FORMAZIONE E DOCUMENTAZIONE</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Formazione dell'Operatore: ☐ Completata</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Procedure Scritte: ☐ Consegnate</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Documentazione Completa: ☐ Consegnata</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Libretto di Controllo: ☐ Fornito</label></li>
-            </ul>
+            <ul id="training-documentation-items"></ul>
 
             <h3>8. MANUTENZIONE E GARANZIA</h3>
-            <ul>
-                <li><label><input type="checkbox" class="verification-item"> Pianificazione della Manutenzione: ☐ Definita</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Registro delle Manutenzioni: ☐ Fornito</label></li>
-                <li><label><input type="checkbox" class="verification-item"> Termini di Garanzia: ☐ Comunicati</label></li>
-            </ul>
+            <ul id="maintenance-warranty-items"></ul>
         </section>
 
         <!-- Firma del cliente -->
