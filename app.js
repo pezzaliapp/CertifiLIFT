@@ -162,13 +162,6 @@ function updateTranslations() {
     document.querySelector('label[for="date"]').textContent = translations[language]['Data'] + ':';
     document.querySelector('label[for="location"]').textContent = translations[language]['Luogo di Installazione'] + ':';
     document.querySelector('label[for="client-signature"]').textContent = translations[language]['Firma del Cliente'] + ':';
-
-    // Aggiorna le etichette della checklist
-    const checklistItems = document.querySelectorAll('.verification-item');
-    checklistItems.forEach((checkbox, index) => {
-        const label = checkbox.parentElement;
-        if (label) label.textContent = translations[language][data.verificationItems[index].label];
-    });
 }
 
 // Gestisce i dati del cliente
@@ -250,34 +243,68 @@ function initializeChecklist() {
     });
 }
 
-// Genera il report in formato TXT
+// Genera una replica visiva del form
 document.getElementById('generate-report').addEventListener('click', () => {
-    let report = '';
+    // Ottieni il contenuto del form
+    const formContent = `
+        <!DOCTYPE html>
+        <html lang="${language}">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>CertifiLIFT - Report</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    background-color: #fff;
+                    color: #333;
+                }
+                h1, h2, h3 {
+                    color: #007BFF;
+                }
+                ul {
+                    list-style-type: none;
+                    padding: 0;
+                }
+                li {
+                    margin-bottom: 5px;
+                }
+                input[type="checkbox"] {
+                    transform: scale(1.2);
+                }
+            </style>
+        </head>
+        <body>
+            <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+                <h1>CertifiLIFT</h1>
+                <p><strong>${translations[language]['Cliente']}: </strong>${data.clientName}</p>
+                <p><strong>${translations[language]['Luogo di Installazione']}: </strong>${data.location}</p>
+                <p><strong>${translations[language]['Data']}: </strong>${data.date}</p>
 
-    // Intestazione
-    report += `CertifiLIFT\n`;
-    report += `Installer Logo: ${data.installerLogo ? data.installerLogo : 'Not Provided'}\n`;
-    report += `${translations[language]['Cliente']}: ${data.clientName}\n`;
-    report += `${translations[language]['Luogo di Installazione']}: ${data.location}\n`;
-    report += `${translations[language]['Data']}: ${data.date}\n\n`;
+                <!-- Checklist -->
+                <h2>${translations[language]['Checklist Verifica Periodica']}</h2>
+                <ul>
+                    ${data.verificationItems.map(item => `<li><input type="checkbox" ${item.status ? 'checked' : ''} disabled /> ${translations[language][item.label]}</li>`).join('\n')}
+                </ul>
 
-    // Checklist
-    report += `${translations[language]['Checklist Verifica Periodica']}:\n`;
-    data.verificationItems.forEach(item => {
-        report += `${item.status ? '[✓]' : '[ ]'} ${translations[language][item.label]}\n`;
-    });
+                <!-- Firma del Cliente -->
+                <p><strong>${translations[language]['Firma del Cliente']}: </strong>${data.signature || 'Non Firmato'}</p>
+            </div>
+        </body>
+        </html>
+    `;
 
-        // Firma del cliente
-    report += `\n${translations[language]['Firma del Cliente']}: ${data.signature || 'Non Firmato'}`;
-
-    // Scarica il report
-    const blob = new Blob([report], { type: 'text/plain' });
+    // Crea un Blob con il contenuto HTML
+    const blob = new Blob([formContent], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `CertifiLIFT_Report_${data.date || 'Report'}.txt`;
-    link.click();
-    URL.revokeObjectURL(url);
+
+    // Apri il report in una nuova finestra
+    const printWindow = window.open(url, '_blank');
+    printWindow.onload = () => {
+        printWindow.print();
+        URL.revokeObjectURL(url);
+    };
 });
 
 // Invia il report via WhatsApp
@@ -286,7 +313,6 @@ document.getElementById('send-whatsapp').addEventListener('click', () => {
 
     // Intestazione
     whatsappMessage += `CertifiLIFT\n`;
-    whatsappMessage += `Installer Logo: ${data.installerLogo ? data.installerLogo : 'Not Provided'}\n`;
     whatsappMessage += `${translations[language]['Cliente']}: ${data.clientName}\n`;
     whatsappMessage += `${translations[language]['Luogo di Installazione']}: ${data.location}\n`;
     whatsappMessage += `${translations[language]['Data']}: ${data.date}\n\n`;
