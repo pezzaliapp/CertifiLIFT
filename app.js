@@ -266,7 +266,7 @@ document.getElementById('generate-report').addEventListener('click', () => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CertifiLIFT - Report</title>
+            <title>Checklist Ponte Sollevatore</title>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -292,7 +292,10 @@ document.getElementById('generate-report').addEventListener('click', () => {
         <body>
             <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
                 <img src="${data.installerLogo || 'logo-installatore.png'}" alt="Logo Installatore" style="max-width: 100px;" />
-                <h1>CertifiLIFT</h1>
+                <h1>Checklist Conformità Ponte Sollevatore</h1>
+                <p><strong>Riferimenti Normativi:</strong> D.Lgs. 81/2008, UNI EN 1493:2010</p>
+
+                <!-- Dati Cliente -->
                 <p><strong>${translations[language]['Cliente']}: </strong>${data.clientName}</p>
                 <p><strong>${translations[language]['Luogo di Installazione']}: </strong>${data.location}</p>
                 <p><strong>${translations[language]['Data']}: </strong>${data.date}</p>
