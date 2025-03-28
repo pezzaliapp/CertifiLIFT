@@ -1,164 +1,20 @@
-/* Reset delle proprietà predefinite */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Stili generali */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
+/* Stile per il caricamento del logo */
+.logo-upload {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    cursor: pointer;
 }
 
-#app {
-    max-width: 800px;
-    width: 100%;
-    margin: 20px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-header img {
+.logo-upload img {
     width: 100px;
     height: auto;
-    margin-bottom: 10px;
-}
-
-header h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #007bff;
-}
-
-header button {
-    background-color: transparent;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: underline;
-}
-
-/* Sezione dati cliente */
-section {
-    margin-bottom: 20px;
-}
-
-section h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-input[type="text"],
-input[type="date"] {
-    width: 100%;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+    transition: border-color 0.3s ease;
 }
 
-/* Checklist */
-#verification-items {
-    list-style-type: none;
-    padding: 0;
-}
-
-#verification-items li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-#verification-items label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#verification-items input[type="checkbox"] {
-    transform: scale(1.2);
-}
-
-/* Firma digitale */
-#signature {
-    margin-top: 20px;
-}
-
-#signature canvas {
-    border: 1px solid #ccc;
-    display: block;
-    margin: 10px 0;
-    width: 100%;
-    height: 150px;
-    background-color: #f9f9f9;
-}
-
-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#clear-signature {
-    background-color: #dc3545;
-}
-
-#clear-signature:hover {
-    background-color: #a71d2a;
-}
-
-/* Report e invio */
-#report {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-#generate-report,
-#send-whatsapp {
-    flex: 1;
-}
-
-/* Responsività */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 20px;
-    }
-
-    #signature canvas {
-        height: 120px;
-    }
-
-    button {
-        width: 100%;
-    }
+.logo-upload img:hover {
+    border-color: #007bff;
 }
