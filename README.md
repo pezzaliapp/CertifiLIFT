@@ -1,4 +1,5 @@
-# CertifiLIFT - Checklist di Conformità per Ponti Sollevatori Auto a Forbice
+# CertifiLIFT - Checklist di Conformità per Ponti Sollevatori Auto a Forbice  
+**Conformità ai Riferimenti Normativi: D.Lgs. 81/2008, UNI EN 1493:2010**
 
 CertifiLIFT è un'applicazione web progettata per semplificare la verifica della conformità normativa e la documentazione relativa all'installazione e alla manutenzione dei ponti sollevatori auto a forbice. Questo strumento aiuta gli installatori, i tecnici e i responsabili della sicurezza a garantire che l'installazione rispetti le normative vigenti e le migliori pratiche di sicurezza.
 
@@ -28,6 +29,13 @@ Questo strumento è particolarmente utile per aziende che operano nel settore de
 
 ## **Regolamentazione per Ponti Sollevatori Auto a Forbice**
 
+### **Riferimenti Normativi**
+La checklist di CertifiLIFT è stata sviluppata in conformità con i seguenti riferimenti normativi:
+- **D.Lgs. 81/2008**: Testo Unico sulla Sicurezza sul Lavoro, che regola l'uso di attrezzature di lavoro.
+- **UNI EN 1493:2010**: Norma europea specifica per la sicurezza nell'uso delle attrezzature per veicoli, inclusi i ponti sollevatori.
+
+---
+
 ### **Requisiti Obbligatori**
 
 L'installazione e l'utilizzo di ponti sollevatori auto a forbice sono regolamentati da normative europee e nazionali. Di seguito sono elencati i requisiti minimi obbligatori:
@@ -37,7 +45,7 @@ L'installazione e l'utilizzo di ponti sollevatori auto a forbice sono regolament
    - La Dichiarazione di Conformità CE deve essere fornita dal produttore.
 
 2. **Progettazione Strutturale**:
-   - Il ponte deve essere progettato e costruito secondo le norme EN 1493 ("Sicurezza nell'uso delle attrezzature per veicoli").
+   - Il ponte deve essere progettato e costruito secondo le norme UNI EN 1493.
    - Devono essere inclusi calcoli strutturali che dimostrino la resistenza del dispositivo sotto carico massimo.
 
 3. **Installazione e Fissaggio**:
@@ -62,7 +70,7 @@ L'installazione e l'utilizzo di ponti sollevatori auto a forbice sono regolament
    - La formazione deve essere documentata e conservata.
 
 8. **Verifica Periodica**:
-   - In base alla legislazione nazionale, i ponti sollevatori devono essere sottoposti a verifiche periodiche da parte di enti autorizzati (es. ASL o organismi accreditati).
+   - In base alla legislazione nazionale (D.Lgs. 81/2008), i ponti sollevatori devono essere sottoposti a verifiche periodiche da parte di enti autorizzati (es. ASL o organismi accreditati).
 
 ---
 
@@ -95,7 +103,7 @@ Oltre ai requisiti obbligatori, è fortemente consigliato adottare le seguenti m
 CertifiLIFT offre le seguenti funzionalità:
 - **Checklist Dettagliata**: Una lista completa di tutti i punti da verificare durante l'installazione e la manutenzione.
 - **Supporto Multilingue**: Interfaccia disponibile in italiano e inglese.
-- **Generazione Report**: Crea un report in formato TXT con tutti i dati inseriti.
+- **Generazione Report**: Crea un report in formato HTML con tutti i dati inseriti, pronto per la stampa.
 - **Invio via WhatsApp**: Invia il report direttamente tramite WhatsApp.
 - **Caricamento Logo**: Permette di caricare il logo dell'azienda installatrice.
 
@@ -116,7 +124,7 @@ CertifiLIFT offre le seguenti funzionalità:
    - Compila il campo "Firma del Cliente" con il nome o la firma del cliente.
 
 5. **Generare il Report**:
-   - Clicca su "Genera Report" per scaricare un file TXT contenente tutti i dati inseriti.
+   - Clicca su "Genera Report" per aprire una versione stampabile del report.
 
 6. **Inviare su WhatsApp**:
    - Clicca su "Invia su WhatsApp" per aprire il messaggio precompilato in WhatsApp.
@@ -132,5 +140,21 @@ Questo progetto è rilasciato sotto licenza MIT. Puoi utilizzare, modificare e d
 ## **Note Finali**
 
 CertifiLIFT è uno strumento pensato per semplificare la gestione della conformità normativa e migliorare la sicurezza nei luoghi di lavoro. Se hai domande o suggerimenti, contattaci!
+
+---
+
+### **Cosa è stato aggiornato**
+
+1. **Titolo principale**:
+   - Incluso il riferimento alle leggi e decreti (`D.Lgs. 81/2008, UNI EN 1493:2010`) per enfatizzare la conformità normativa.
+
+2. **Sezione "Riferimenti Normativi"**:
+   - Aggiunta una sezione dedicata ai riferimenti normativi, con spiegazioni brevi ma chiare.
+
+3. **Integrazione normativa**:
+   - I requisiti obbligatori e consigliati sono stati esplicitamente collegati alle normative citate.
+
+4. **Coerenza con il form e il report**:
+   - Il titolo e i riferimenti normativi sono ora coerenti tra il `README.md`, il form (`index.html`) e il report generato.
 
 ---
