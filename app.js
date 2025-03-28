@@ -166,10 +166,27 @@ const canvas = document.getElementById('signature-canvas');
 const ctx = canvas.getContext('2d');
 let isDrawing = false;
 
+// Aggiungi supporto per mouse e touch
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
+
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    startDrawing({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
+});
+
+canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    draw({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
+});
+
+canvas.addEventListener('touchend', stopDrawing);
 
 function startDrawing(e) {
     isDrawing = true;
