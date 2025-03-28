@@ -14,14 +14,17 @@
     <div id="app">
         <!-- Logo e dati installatore -->
         <header>
-            <img src="logo-installatore.png" alt="Logo Installatore" id="installer-logo">
+            <label for="installer-logo-input" class="logo-upload">
+                <img src="logo-installatore.png" alt="Logo Installatore" id="installer-logo">
+                <input type="file" id="installer-logo-input" accept="image/*" style="display: none;">
+            </label>
             <h1>CertifiLIFT</h1>
             <button id="language-switch">English</button>
         </header>
 
         <!-- Form per dati cliente -->
         <section id="customer-data">
-            <h2>Dati Cliente</h2>
+            <h2 id="customer-data-title">Dati Cliente</h2>
             <input type="text" id="client-name" placeholder="Nome Cliente">
             <input type="text" id="location" placeholder="Località">
             <input type="date" id="date" placeholder="Data">
@@ -29,13 +32,13 @@
 
         <!-- Checklist verifiche -->
         <section id="checklist">
-            <h2>Checklist Verifica Periodica</h2>
+            <h2 id="checklist-title">Checklist Verifica Periodica</h2>
             <ul id="verification-items"></ul>
         </section>
 
         <!-- Firma digitale -->
         <section id="signature">
-            <h2>Firma Digitale</h2>
+            <h2 id="signature-title">Firma Digitale</h2>
             <canvas id="signature-canvas"></canvas>
             <button id="clear-signature">Cancella</button>
         </section>
