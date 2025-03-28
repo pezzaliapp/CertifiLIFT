@@ -8,7 +8,7 @@ const data = {
     clientName: '',
     location: '',
     date: '',
-    installerLogo: 'logo-installatore.png',
+    installerLogo: '', // URL o base64 del logo caricato
     verificationItems: [
         { label: 'Verifica altezza di sollevamento del piano di pavimento a piano pedane', status: false },
         { label: 'Serraggio tasselli fissaggio basi al pavimento', status: false },
@@ -27,11 +27,39 @@ const data = {
     signature: null,
 };
 
+// Traduzioni
+const translations = {
+    it: {
+        'Dati Cliente': 'Dati Cliente',
+        'Checklist Verifica Periodica': 'Checklist Verifica Periodica',
+        'Firma Digitale': 'Firma Digitale',
+        'Genera Report': 'Genera Report',
+        'Invia su WhatsApp': 'Invia su WhatsApp',
+    },
+    en: {
+        'Dati Cliente': 'Customer Data',
+        'Checklist Verifica Periodica': 'Periodic Verification Checklist',
+        'Firma Digitale': 'Digital Signature',
+        'Genera Report': 'Generate Report',
+        'Invia su WhatsApp': 'Send via WhatsApp',
+    },
+};
+
 // Imposta lingua
 document.getElementById('language-switch').addEventListener('click', () => {
     language = language === 'it' ? 'en' : 'it';
     document.getElementById('language-switch').textContent = language === 'it' ? 'English' : 'Italiano';
+    updateTranslations();
 });
+
+// Aggiorna le traduzioni
+function updateTranslations() {
+    document.getElementById('customer-data-title').textContent = translations[language]['Dati Cliente'];
+    document.getElementById('checklist-title').textContent = translations[language]['Checklist Verifica Periodica'];
+    document.getElementById('signature-title').textContent = translations[language]['Firma Digitale'];
+    document.getElementById('generate-report').textContent = translations[language]['Genera Report'];
+    document.getElementById('send-whatsapp').textContent = translations[language]['Invia su WhatsApp'];
+}
 
 // Gestisce i dati del cliente
 document.getElementById('client-name').addEventListener('input', () => {
@@ -42,6 +70,19 @@ document.getElementById('location').addEventListener('input', () => {
 });
 document.getElementById('date').addEventListener('input', () => {
     data.date = document.getElementById('date').value;
+});
+
+// Carica il logo
+document.getElementById('installer-logo-input').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            document.getElementById('installer-logo').src = e.target.result;
+            data.installerLogo = e.target.result; // Salva l'URL base64 del logo
+        };
+        reader.readAsDataURL(file);
+    }
 });
 
 // Genera la checklist dinamica
@@ -110,20 +151,20 @@ document.getElementById('generate-report').addEventListener('click', () => {
 
     // Intestazione
     report += `CertifiLIFT\n`;
-    report += `Installatore: Tecno Service\n`;
-    report += `Cliente: ${data.clientName}\n`;
-    report += `Località: ${data.location}\n`;
-    report += `Data: ${data.date}\n\n`;
+    report += `Installer Logo: ${data.installerLogo}\n`;
+    report += `Client: ${data.clientName}\n`;
+    report += `Location: ${data.location}\n`;
+    report += `Date: ${data.date}\n\n`;
 
     // Checklist
-    report += `Checklist Verifica:\n`;
+    report += `Verification Checklist:\n`;
     data.verificationItems.forEach(item => {
         report += `${item.status ? '[✓]' : '[ ]'} ${item.label}\n`;
     });
 
     // Firma digitale
     const signatureDataURL = canvas.toDataURL();
-    report += `\nFirma Digitale: ${signatureDataURL}`;
+    report += `\nDigital Signature: ${signatureDataURL}`;
 
     // Scarica il report
     const blob = new Blob([report], { type: 'text/plain' });
@@ -143,3 +184,4 @@ document.getElementById('send-whatsapp').addEventListener('click', () => {
 
 // Esegui all'avvio
 generateChecklist();
+updateTranslations(); // Inizializza le traduzioni
