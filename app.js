@@ -9,7 +9,45 @@ const data = {
     location: '',
     date: '',
     installerLogo: '', // URL o base64 del logo caricato
-    verificationItems: [],
+    verificationItems: [
+        { label: 'Dichiarazione di Conformità CE', status: false },
+        { label: 'Marchio CE', status: false },
+        { label: 'Manuale d\'Uso e Manutenzione', status: false },
+        { label: 'Progettazione Strutturale', status: false },
+        { label: 'Livellamento e Fissaggio al Suolo', status: false },
+        { label: 'Serraggio Tasselli Fissaggio Basamenti al Pavimento', status: false },
+        { label: 'Resistenza del Pavimento', status: false },
+        { label: 'Spazio Operativo e Accessibilità', status: false },
+        { label: 'Altezza di Sollevamento (Pavimento-Pedane)', status: false },
+        { label: 'Allineamento Pedane', status: false },
+        { label: 'Controllo Olio Centralina Idraulica', status: false },
+        { label: 'Funzionamento Valvola di Riallineamento Pedane', status: false },
+        { label: 'Inserimento Arpioni (se con sicure meccaniche)', status: false },
+        { label: 'Verifica Valvola a Paracadute (se presente)', status: false },
+        { label: 'Verifica Pressostato (se presente)', status: false },
+        { label: 'Verifica Cicalino di Segnalazione Sonora', status: false },
+        { label: 'Tempi di Salita/Discesa a Pieno Carico', status: false },
+        { label: 'Attivazione Fotocellule (se presenti)', status: false },
+        { label: 'Dispositivi di Blocco Meccanico/Idraulico', status: false },
+        { label: 'Sensori di Sovraccarico o Allarme', status: false },
+        { label: 'Arresto di Emergenza', status: false },
+        { label: 'Protezioni Antinfortunistiche (Paratie, Coperture, ecc.)', status: false },
+        { label: 'Presenza Adesivi di Sicurezza', status: false },
+        { label: 'Interruttore Generale', status: false },
+        { label: 'Pulsanti Salita/Discesa', status: false },
+        { label: 'Indicatori Luminosi (LED)', status: false },
+        { label: 'Sistema di Alimentazione Elettrica (Differenziali/Magnetotermici)', status: false },
+        { label: 'Segnaletica di Sicurezza', status: false },
+        { label: 'Valutazione dei Rischi (DVR)', status: false },
+        { label: 'Controllo delle Vibrazioni', status: false },
+        { label: 'Formazione dell\'Operatore', status: false },
+        { label: 'Procedure Scritte', status: false },
+        { label: 'Documentazione Completa', status: false },
+        { label: 'Libretto di Controllo', status: false },
+        { label: 'Pianificazione della Manutenzione', status: false },
+        { label: 'Registro delle Manutenzioni', status: false },
+        { label: 'Termini di Garanzia', status: false },
+    ],
     signature: '', // Firma del cliente
 };
 
@@ -162,20 +200,52 @@ document.getElementById('installer-logo-input').addEventListener('change', (even
 
 // Inizializza la checklist
 function initializeChecklist() {
-    const checklistContainer = document.querySelectorAll('#checklist ul li');
-    checklistContainer.forEach((item, index) => {
-        const checkbox = item.querySelector('input[type="checkbox"]');
-        const label = item.querySelector('label');
+    const checklistContainers = [
+        document.getElementById('normative-checklist'),
+        document.getElementById('installation-checklist'),
+        document.getElementById('functional-checklist'),
+        document.getElementById('safety-checklist'),
+        document.getElementById('electrical-checklist'),
+        document.getElementById('risk-checklist'),
+        document.getElementById('training-checklist'),
+        document.getElementById('maintenance-checklist'),
+    ];
 
-        // Aggiungi i dati alla struttura `data`
-        data.verificationItems.push({
-            label: label.textContent.trim(),
-            status: false,
-        });
+    const sections = [
+        data.verificationItems.slice(0, 4), // VERIFICA NORMATIVA
+        data.verificationItems.slice(4, 8), // INSTALLAZIONE E FISSAGGIO
+        data.verificationItems.slice(8, 17), // TEST FUNZIONALI E CONTROLLI MECCANICI
+        data.verificationItems.slice(17, 23), // SICUREZZE E DISPOSITIVI DI PROTEZIONE
+        data.verificationItems.slice(23, 27), // VERIFICA COMANDI ELETTRICI
+        data.verificationItems.slice(27, 30), // SICUREZZA E RISCHI
+        data.verificationItems.slice(30, 34), // FORMAZIONE E DOCUMENTAZIONE
+        data.verificationItems.slice(34, 37), // MANUTENZIONE E GARANZIA
+    ];
 
-        // Aggiorna lo stato del checkbox
-        checkbox.addEventListener('change', () => {
-            data.verificationItems[index].status = checkbox.checked;
+    checklistContainers.forEach((container, sectionIndex) => {
+        sections[sectionIndex].forEach(item => {
+            const li = document.createElement('li');
+
+            // Crea il checkbox
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'verification-item';
+            checkbox.checked = item.status;
+
+            // Crea l'etichetta
+            const label = document.createElement('label');
+            const span = document.createElement('span');
+            span.textContent = translations[language][item.label];
+            label.appendChild(checkbox);
+            label.appendChild(span);
+
+            li.appendChild(label);
+            container.appendChild(li);
+
+            // Gestisce lo stato delle caselle di controllo
+            checkbox.addEventListener('change', () => {
+                item.status = checkbox.checked;
+            });
         });
     });
 }
@@ -197,7 +267,7 @@ document.getElementById('generate-report').addEventListener('click', () => {
         report += `${item.status ? '[✓]' : '[ ]'} ${translations[language][item.label]}\n`;
     });
 
-    // Firma del cliente
+        // Firma del cliente
     report += `\n${translations[language]['Firma del Cliente']}: ${data.signature || 'Non Firmato'}`;
 
     // Scarica il report
