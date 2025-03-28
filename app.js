@@ -102,7 +102,7 @@ function updateTranslations() {
     const checklistItems = document.querySelectorAll('#verification-items li');
     checklistItems.forEach((item, index) => {
         const labelElement = item.querySelector('label span');
-        labelElement.textContent = translations[language][data.verificationItems[index].label];
+        if (labelElement) labelElement.textContent = translations[language][data.verificationItems[index].label];
     });
 }
 
@@ -213,6 +213,19 @@ document.getElementById('clear-signature').addEventListener('click', () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
+// Funzione per convertire un DataURL in Blob
+function dataURLToBlob(dataURL) {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
+
 // Genera il report in formato TXT
 document.getElementById('generate-report').addEventListener('click', () => {
     let report = '';
@@ -230,9 +243,13 @@ document.getElementById('generate-report').addEventListener('click', () => {
         report += `${item.status ? '[✓]' : '[ ]'} ${translations[language][item.label]}\n`;
     });
 
-    // Firma digitale
-    const signatureDataURL = canvas.toDataURL();
-    report += `\n${translations[language]['Firma Digitale']}: ${signatureDataURL}`;
+    // Salva la firma come file immagine
+    const signatureDataURL = canvas.toDataURL('image/png');
+    const signatureBlob = dataURLToBlob(signatureDataURL);
+    const signatureFileName = `CertifiLIFT_Signature_${data.date || 'Report'}.png`;
+    const signatureFileURL = URL.createObjectURL(signatureBlob);
+
+    report += `\n${translations[language]['Firma Digitale']}: ${signatureFileURL}`;
 
     // Scarica il report
     const blob = new Blob([report], { type: 'text/plain' });
@@ -242,6 +259,13 @@ document.getElementById('generate-report').addEventListener('click', () => {
     link.download = `CertifiLIFT_Report_${data.date || 'Report'}.txt`;
     link.click();
     URL.revokeObjectURL(url);
+
+    // Scarica la firma come file immagine
+    const signatureLink = document.createElement('a');
+    signatureLink.href = signatureFileURL;
+    signatureLink.download = signatureFileName;
+    signatureLink.click();
+    URL.revokeObjectURL(signatureFileURL);
 });
 
 // Invia il report via WhatsApp
@@ -261,13 +285,20 @@ document.getElementById('send-whatsapp').addEventListener('click', () => {
         whatsappMessage += `${item.status ? '[✓]' : '[ ]'} ${translations[language][item.label]}\n`;
     });
 
-    // Firma digitale
-    const signatureDataURL = canvas.toDataURL();
-    whatsappMessage += `\n${translations[language]['Firma Digitale']}: ${signatureDataURL}`;
+       // Aggiungi la firma digitale come link temporaneo
+    const signatureDataURL = canvas.toDataURL('image/png');
+    const signatureBlob = dataURLToBlob(signatureDataURL);
+    const signatureFileName = `CertifiLIFT_Signature_${data.date || 'Report'}.png`;
+    const signatureFileURL = URL.createObjectURL(signatureBlob);
+
+    whatsappMessage += `\n${translations[language]['Firma Digitale']}: ${signatureFileURL}`;
 
     // Apri WhatsApp con il messaggio codificato
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
+
+    // Revoca l'URL temporaneo dopo un breve periodo
+    setTimeout(() => URL.revokeObjectURL(signatureFileURL), 5000);
 });
 
 // Esegui all'avvio
