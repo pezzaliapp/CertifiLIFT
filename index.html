@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>CertifiLIFT</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon/CertifiLIFT-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon/CertifiLIFT-512.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Logo e dati installatore -->
+        <header>
+            <img src="logo-installatore.png" alt="Logo Installatore" id="installer-logo">
+            <h1>CertifiLIFT</h1>
+            <button id="language-switch">English</button>
+        </header>
+
+        <!-- Form per dati cliente -->
+        <section id="customer-data">
+            <h2>Dati Cliente</h2>
+            <input type="text" id="client-name" placeholder="Nome Cliente">
+            <input type="text" id="location" placeholder="Località">
+            <input type="date" id="date" placeholder="Data">
+        </section>
+
+        <!-- Checklist verifiche -->
+        <section id="checklist">
+            <h2>Checklist Verifica Periodica</h2>
+            <ul id="verification-items"></ul>
+        </section>
+
+        <!-- Firma digitale -->
+        <section id="signature">
+            <h2>Firma Digitale</h2>
+            <canvas id="signature-canvas"></canvas>
+            <button id="clear-signature">Cancella</button>
+        </section>
+
+        <!-- Report e invio -->
+        <section id="report">
+            <button id="generate-report">Genera Report</button>
+            <button id="send-whatsapp">Invia su WhatsApp</button>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
