@@ -12,7 +12,17 @@ const data = {
     verificationItems: [
         { label: 'Verifica altezza di sollevamento del piano di pavimento a piano pedane', status: false },
         { label: 'Serraggio tasselli fissaggio basi al pavimento', status: false },
-        // ... altri elementi della checklist
+        { label: 'Controllo olio centralina idraulica', status: false },
+        { label: 'Attivazione sicurezze: fotocellule', status: false },
+        { label: 'Verifica comandi elettrici: interruttore generale, pulsanti salita/discesa', status: false },
+        { label: 'Controllo funzionamento valvola di riallineamento pedane', status: false },
+        { label: 'Verifica allineamento pedane', status: false },
+        { label: 'Verifica inserimento arpioni (se con sicure meccaniche)', status: false },
+        { label: 'Verifica valvola a paracadute', status: false },
+        { label: 'Verifica inserimento pressostato (se presente)', status: false },
+        { label: 'Verifica cicalino sonoro', status: false },
+        { label: 'Controllo tempi di discesa e salita a pieno carico', status: false },
+        { label: 'Controllo presenza adesivi di sicurezza', status: false },
     ],
     signature: null,
 };
