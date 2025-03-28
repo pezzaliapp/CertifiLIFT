@@ -99,9 +99,10 @@ function updateTranslations() {
     document.getElementById('clear-signature').textContent = translations[language]['Cancella'];
 
     // Aggiorna le etichette della checklist
-    const checklistItems = document.querySelectorAll('#verification-items li label');
+    const checklistItems = document.querySelectorAll('#verification-items li');
     checklistItems.forEach((item, index) => {
-        item.textContent = translations[language][data.verificationItems[index].label];
+        const labelElement = item.querySelector('label span');
+        labelElement.textContent = translations[language][data.verificationItems[index].label];
     });
 }
 
@@ -134,20 +135,26 @@ function generateChecklist() {
     const checklistContainer = document.getElementById('verification-items');
     checklistContainer.innerHTML = ''; // Pulisce la lista
 
-    data.verificationItems.forEach(item => {
+    data.verificationItems.forEach((item, index) => {
         const li = document.createElement('li');
-        li.innerHTML = `
-            <label>
-                <input type="checkbox" class="verification-item">
-                ${translations[language][item.label]}
-            </label>
-        `;
-        checklistContainer.appendChild(li);
-    });
 
-    // Gestisce lo stato delle caselle di controllo
-    const checkboxes = document.querySelectorAll('.verification-item');
-    checkboxes.forEach((checkbox, index) => {
+        // Creazione del checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'verification-item';
+        checkbox.checked = item.status;
+
+        // Aggiunta dell'etichetta
+        const label = document.createElement('label');
+        const span = document.createElement('span');
+        span.textContent = translations[language][item.label];
+        label.appendChild(checkbox);
+        label.appendChild(span);
+
+        li.appendChild(label);
+        checklistContainer.appendChild(li);
+
+        // Gestisce lo stato delle caselle di controllo
         checkbox.addEventListener('change', () => {
             data.verificationItems[index].status = checkbox.checked;
         });
