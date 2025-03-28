@@ -164,10 +164,17 @@ function updateTranslations() {
     document.querySelector('label[for="client-signature"]').textContent = translations[language]['Firma del Cliente'] + ':';
 
     // Aggiorna le etichette della checklist
-    const checklistItems = document.querySelectorAll('.verification-item');
-    checklistItems.forEach((checkbox, index) => {
-        const label = checkbox.parentElement;
-        if (label) label.textContent = translations[language][data.verificationItems[index].label];
+    const checklistContainers = document.querySelectorAll('#checklist ul');
+    checklistContainers.forEach((container) => {
+        Array.from(container.children).forEach((item) => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const label = item.querySelector('label span');
+            if (label) {
+                const labelText = label.textContent.trim();
+                const translatedLabel = translations[language][labelText];
+                label.textContent = translatedLabel || labelText;
+            }
+        });
     });
 }
 
