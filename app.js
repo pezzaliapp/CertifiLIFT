@@ -162,6 +162,13 @@ function updateTranslations() {
     document.querySelector('label[for="date"]').textContent = translations[language]['Data'] + ':';
     document.querySelector('label[for="location"]').textContent = translations[language]['Luogo di Installazione'] + ':';
     document.querySelector('label[for="client-signature"]').textContent = translations[language]['Firma del Cliente'] + ':';
+
+    // Aggiorna le etichette della checklist
+    const checklistItems = document.querySelectorAll('.verification-item');
+    checklistItems.forEach((checkbox, index) => {
+        const label = checkbox.parentElement;
+        if (label) label.textContent = translations[language][data.verificationItems[index].label];
+    });
 }
 
 // Gestisce i dati del cliente
@@ -277,6 +284,7 @@ document.getElementById('generate-report').addEventListener('click', () => {
         </head>
         <body>
             <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+                <img src="${data.installerLogo || 'logo-installatore.png'}" alt="Logo Installatore" style="max-width: 100px;" />
                 <h1>CertifiLIFT</h1>
                 <p><strong>${translations[language]['Cliente']}: </strong>${data.clientName}</p>
                 <p><strong>${translations[language]['Luogo di Installazione']}: </strong>${data.location}</p>
