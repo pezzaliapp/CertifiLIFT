@@ -24,7 +24,6 @@ const data = {
         { label: 'Controllo tempi di discesa e salita a pieno carico', status: false },
         { label: 'Controllo presenza adesivi di sicurezza', status: false },
     ],
-    signature: null,
 };
 
 // Traduzioni
@@ -35,7 +34,6 @@ const translations = {
         'Località': 'Località',
         'Data': 'Data',
         'Checklist Verifica Periodica': 'Checklist Verifica Periodica',
-        'Firma Digitale': 'Firma Digitale',
         'Genera Report': 'Genera Report',
         'Invia su WhatsApp': 'Invia su WhatsApp',
         'Cancella': 'Cancella',
@@ -59,7 +57,6 @@ const translations = {
         'Località': 'Location',
         'Data': 'Date',
         'Checklist Verifica Periodica': 'Periodic Verification Checklist',
-        'Firma Digitale': 'Digital Signature',
         'Genera Report': 'Generate Report',
         'Invia su WhatsApp': 'Send via WhatsApp',
         'Cancella': 'Clear',
@@ -93,10 +90,8 @@ function updateTranslations() {
     document.getElementById('location').placeholder = translations[language]['Località'];
     document.getElementById('date').placeholder = translations[language]['Data'];
     document.getElementById('checklist-title').textContent = translations[language]['Checklist Verifica Periodica'];
-    document.getElementById('signature-title').textContent = translations[language]['Firma Digitale'];
     document.getElementById('generate-report').textContent = translations[language]['Genera Report'];
     document.getElementById('send-whatsapp').textContent = translations[language]['Invia su WhatsApp'];
-    document.getElementById('clear-signature').textContent = translations[language]['Cancella'];
 
     // Aggiorna le etichette della checklist
     const checklistItems = document.querySelectorAll('#verification-items li');
@@ -161,71 +156,6 @@ function generateChecklist() {
     });
 }
 
-// Canvas per la firma digitale
-const canvas = document.getElementById('signature-canvas');
-const ctx = canvas.getContext('2d');
-let isDrawing = false;
-
-// Aggiungi supporto per mouse e touch
-canvas.addEventListener('mousedown', startDrawing);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('mouseout', stopDrawing);
-
-canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    startDrawing({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
-});
-
-canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    draw({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
-});
-
-canvas.addEventListener('touchend', stopDrawing);
-
-function startDrawing(e) {
-    isDrawing = true;
-    [prevX, prevY] = [e.offsetX, e.offsetY];
-}
-
-function draw(e) {
-    if (!isDrawing) return;
-    ctx.beginPath();
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
-    ctx.lineJoin = 'round';
-    ctx.moveTo(prevX, prevY);
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-    [prevX, prevY] = [e.offsetX, e.offsetY];
-}
-
-function stopDrawing() {
-    isDrawing = false;
-}
-
-document.getElementById('clear-signature').addEventListener('click', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
-
-// Funzione per convertire un DataURL in Blob
-function dataURLToBlob(dataURL) {
-    const arr = dataURL.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], { type: mime });
-}
-
 // Genera il report in formato TXT
 document.getElementById('generate-report').addEventListener('click', () => {
     let report = '';
@@ -243,14 +173,6 @@ document.getElementById('generate-report').addEventListener('click', () => {
         report += `${item.status ? '[✓]' : '[ ]'} ${translations[language][item.label]}\n`;
     });
 
-    // Salva la firma come file immagine
-    const signatureDataURL = canvas.toDataURL('image/png');
-    const signatureBlob = dataURLToBlob(signatureDataURL);
-    const signatureFileName = `CertifiLIFT_Signature_${data.date || 'Report'}.png`;
-    const signatureFileURL = URL.createObjectURL(signatureBlob);
-
-    report += `\n${translations[language]['Firma Digitale']}: ${signatureFileURL}`;
-
     // Scarica il report
     const blob = new Blob([report], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -259,13 +181,6 @@ document.getElementById('generate-report').addEventListener('click', () => {
     link.download = `CertifiLIFT_Report_${data.date || 'Report'}.txt`;
     link.click();
     URL.revokeObjectURL(url);
-
-    // Scarica la firma come file immagine
-    const signatureLink = document.createElement('a');
-    signatureLink.href = signatureFileURL;
-    signatureLink.download = signatureFileName;
-    signatureLink.click();
-    URL.revokeObjectURL(signatureFileURL);
 });
 
 // Invia il report via WhatsApp
@@ -285,20 +200,9 @@ document.getElementById('send-whatsapp').addEventListener('click', () => {
         whatsappMessage += `${item.status ? '[✓]' : '[ ]'} ${translations[language][item.label]}\n`;
     });
 
-       // Aggiungi la firma digitale come link temporaneo
-    const signatureDataURL = canvas.toDataURL('image/png');
-    const signatureBlob = dataURLToBlob(signatureDataURL);
-    const signatureFileName = `CertifiLIFT_Signature_${data.date || 'Report'}.png`;
-    const signatureFileURL = URL.createObjectURL(signatureBlob);
-
-    whatsappMessage += `\n${translations[language]['Firma Digitale']}: ${signatureFileURL}`;
-
     // Apri WhatsApp con il messaggio codificato
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappUrl, '_blank');
-
-    // Revoca l'URL temporaneo dopo un breve periodo
-    setTimeout(() => URL.revokeObjectURL(signatureFileURL), 5000);
 });
 
 // Esegui all'avvio
