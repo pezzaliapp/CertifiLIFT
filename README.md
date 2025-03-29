@@ -140,21 +140,3 @@ Questo progetto è rilasciato sotto licenza MIT. Puoi utilizzare, modificare e d
 ## **Note Finali**
 
 CertifiLIFT è uno strumento pensato per semplificare la gestione della conformità normativa e migliorare la sicurezza nei luoghi di lavoro. Se hai domande o suggerimenti, contattaci!
-
----
-
-### **Cosa è stato aggiornato**
-
-1. **Titolo principale**:
-   - Incluso il riferimento alle leggi e decreti (`D.Lgs. 81/2008, UNI EN 1493:2010`) per enfatizzare la conformità normativa.
-
-2. **Sezione "Riferimenti Normativi"**:
-   - Aggiunta una sezione dedicata ai riferimenti normativi, con spiegazioni brevi ma chiare.
-
-3. **Integrazione normativa**:
-   - I requisiti obbligatori e consigliati sono stati esplicitamente collegati alle normative citate.
-
-4. **Coerenza con il form e il report**:
-   - Il titolo e i riferimenti normativi sono ora coerenti tra il `README.md`, il form (`index.html`) e il report generato.
-
----
